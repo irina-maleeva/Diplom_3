@@ -1,6 +1,6 @@
-package org.example.pageObject;
+package org.example;
 
-import Utils.Constants;
+import org.example.Utils.Constants;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.After;
 import org.junit.Before;
@@ -15,11 +15,8 @@ public class BaseTest  {
     public void setUp(){
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
-//        WebDriverManager.chromedriver().browserVersion("116").setup();
-
-
-
-        WebDriverManager.chromedriver().setup();
+        WebDriverManager.chromedriver().browserVersion("114").setup();
+//        WebDriverManager.chromedriver().setup();
         webDriver = new ChromeDriver(options);
         webDriver.get(Constants.HOME_URL);
     }

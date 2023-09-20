@@ -1,10 +1,9 @@
-package User;
+package org.example.User;
 
-import Utils.Constants;
+import org.example.Utils.Constants;
 import io.qameta.allure.Step;
 
 
-import io.restassured.specification.RequestSpecification;
 import io.restassured.response.Response;
 
 import static io.restassured.RestAssured.given;

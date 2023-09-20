@@ -1,6 +1,5 @@
 package org.example.pageObject;
 
-import Utils.Constants;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -40,5 +39,12 @@ public class LoginPage {
     }
     public void clickRestorePasswordLink(){
         webDriver.findElement(restorePasswordLink).click();
+    }
+
+    public String getEmailInputFieldValue(){
+       return webDriver.findElement(emailInputField).getAttribute("value");
+    }
+    public String getPasswordInputFieldValue(){
+        return webDriver.findElement(passwordInputField).getAttribute("value");
     }
 }

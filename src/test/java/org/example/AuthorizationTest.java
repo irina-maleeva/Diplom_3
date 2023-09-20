@@ -1,28 +1,41 @@
-package org.example.pageObject;
+package org.example;
 
-import Utils.Constants;
+import org.example.User.User;
+import org.example.User.UserClient;
+import org.example.Utils.Constants;
+import org.example.pageObject.*;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import static Utils.RandomString.randomString;
+import io.restassured.response.Response;
+import static org.example.Utils.RandomString.randomString;
 
 public class AuthorizationTest extends BaseTest {
  HomePage homePage;
  LoginPage loginPage;
  ProfilePage profilePage;
-
  RegistrationPage registrationPage;
-
  RestorePasswordPage restorePasswordPage;
 
-// Написать тут создание пользователя
 
+    String email;
+    String password;
+    String name;
+    String accessToken;
+    UserClient userClient = new UserClient();
+    User user;
 
-    String email = Constants.USER_EMAIL;
-
-    String password = Constants.USER_PASSWORD;
-
+    @Before
+    public void createUser(){
+        name = randomString(7);
+        email = randomString(6) + "@yandex.ru";
+        password = randomString(7);
+        user = new User(email, password, name);
+        Response createUser = userClient.createUser(user);
+        accessToken = createUser.body().path("accessToken").toString().substring(7);
+    }
 
  @Test
  public void testEnterViaEnterAccountButton() {
@@ -34,11 +47,11 @@ public class AuthorizationTest extends BaseTest {
      loginPage.fillInUserData(email, password);
      loginPage.clickEnterButton();
      homePage.waitForRegisterOrderButton();
-     Assert.assertEquals(webDriver.getCurrentUrl(), Constants.HOME_URL);
+     Assert.assertEquals(Constants.HOME_URL, webDriver.getCurrentUrl());
      homePage.enterPersonalProfile();
      profilePage = new ProfilePage(webDriver);
      profilePage.waitForPageLoad();
-     Assert.assertEquals(profilePage.getEmailText(), email);
+     Assert.assertEquals(email, profilePage.getEmailText());
  }
 
  @Test
@@ -54,7 +67,7 @@ public class AuthorizationTest extends BaseTest {
       homePage.enterPersonalProfile();
       profilePage = new ProfilePage(webDriver);
       profilePage.waitForPageLoad();
-      Assert.assertEquals(profilePage.getEmailText(), email);
+      Assert.assertEquals(email, profilePage.getEmailText());
  }
 
  @Test
@@ -75,7 +88,7 @@ public class AuthorizationTest extends BaseTest {
      homePage.enterPersonalProfile();
      profilePage = new ProfilePage(webDriver);
      profilePage.waitForPageLoad();
-     Assert.assertEquals(profilePage.getEmailText(), email);
+     Assert.assertEquals(email, profilePage.getEmailText());
  }
 
  @Test
@@ -96,6 +109,11 @@ public class AuthorizationTest extends BaseTest {
      homePage.enterPersonalProfile();
      profilePage = new ProfilePage(webDriver);
      profilePage.waitForPageLoad();
-     Assert.assertEquals(profilePage.getEmailText(), email);
+     Assert.assertEquals(email, profilePage.getEmailText());
+ }
+
+ @After
+    public void cleanUp(){
+        userClient.deleteUser(accessToken);
  }
 }

@@ -19,17 +19,33 @@ public class ProfilePage {
     private final By nameField = By.xpath(".//li[1]//input");
     private final By emailField = By.xpath(".//li[2]//input");
 
+    private final By constructorButton = By.xpath(".//*[text()='Конструктор']");
+
+    private final By logo = By.xpath(".//nav/div[@class='AppHeader_header__logo__2D0X2']");
+
+    private final By exitButton = By.xpath(".//button[text()='Выход']");
+
     public void waitForPageLoad() {
         new WebDriverWait(webDriver, Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOfElementLocated(textMessage));
     }
 
-    public String getEmailText(){
-        String email = webDriver.findElement(emailField).getAttribute("value");
-        return email;
+    public String getEmailText() {
+        return webDriver.findElement(emailField).getAttribute("value");
     }
 
-    public String getNameText(){
-        String name = webDriver.findElement(nameField).getAttribute("value");
-        return name;
+    public String getNameText() {
+        return webDriver.findElement(nameField).getAttribute("value");
+    }
+
+    public void clickConstructorButton() {
+        webDriver.findElement(constructorButton).click();
+    }
+
+    public void clickLogo() {
+        webDriver.findElement(logo).click();
+    }
+
+    public void clickExitProfileButton() {
+        webDriver.findElement(exitButton).click();
     }
 }
