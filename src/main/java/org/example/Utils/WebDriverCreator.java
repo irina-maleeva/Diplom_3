@@ -5,8 +5,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-
-
 public class WebDriverCreator {
     private static final String CHROMEDRIVER_PATH = "C:/WebDriver/bin";
     private static final String YANDEX_BROWSER_PATH = "C:/ProgramData/Microsoft/Windows/Start Menu/Programs/Yandex.lnk";
