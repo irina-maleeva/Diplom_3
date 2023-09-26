@@ -16,8 +16,6 @@ public class PersonalProfilePageTest extends BaseTest {
     HomePage homePage;
     LoginPage loginPage;
     ProfilePage profilePage;
-    RegistrationPage registrationPage;
-    RestorePasswordPage restorePasswordPage;
 
     String email;
     String password;
